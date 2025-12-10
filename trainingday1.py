@@ -9,8 +9,9 @@ class BankAccount:
         self._balance = balance
         
         self.__transaction_history = []
+        if not self.validate_pin(pin_code):
+            raise ValueError("PIN must be a 4-digit numeric string.")
         self.__pin_code = pin_code
-
     @property
     def balance(self):
         return self._balance
@@ -65,3 +66,7 @@ class BankAccount:
     @staticmethod
     def validate_amount(amount):
         return isinstance(amount, (int, float)) and amount >= 0
+    
+    @staticmethod
+    def validate_pin(pin):
+        return isinstance(pin, str) and pin.isdigit() and len(pin) == 4
